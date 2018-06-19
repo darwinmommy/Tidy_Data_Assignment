@@ -1,5 +1,3 @@
-setwd("~/Coursera WD/data")
-
 filename<-"UCI Data.zip"
 if(!file.exists(filename)){
     URL<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -31,7 +29,7 @@ TestData<-read.table("X_test.txt",header=FALSE,stringsAsFactors = FALSE,as.is = 
 colnames(TestData)=MeanSD.names
 
 #Compile the Test set, assign names to the two first columns
-#Create a new column to identify the assoicated data as "Test" set
+#Create a new column to identify the assoicated subject as part of the "Test" set
 TestCompiled<-cbind(TestSubjects,TestMeasure)
 colnames(TestCompiled)<-c("SubjectID","Activity")
 library(plyr)
@@ -47,15 +45,14 @@ TrainData<-read.table("X_train.txt",header=FALSE,stringsAsFactors = FALSE,as.is 
 colnames(TrainData)=MeanSD.names
 
 #As above, compile the Train set, assign names to the first two columns
-#As above, create a new column to identify the associated data as "Train" set
+#As above, create a new column to identify the associated subject as part of the "Train" set
 TrainCompiled<-cbind(TrainSubjects,TrainMeasure)
 colnames(TrainCompiled)<-c("SubjectID","Activity")
 library(plyr)
 TrainCompiled<-mutate(TrainCompiled,Group="Train")
-
 Train<-cbind(TrainCompiled,TrainData)
 
-#Create a merged data set that includes all "Test" and "Train" data
+#Create a merged data set that includes all "Test" and "Train" data, subsets columns 1-69 to include only variables with Mean or Std measurements
 Merged<-rbind(Train,Test)
 Merged = Merged[,1:69]
 
@@ -68,7 +65,6 @@ Merged$Activity<-gsub(4,"Sitting",Merged$Activity)
 Merged$Activity<-gsub(5,"Standing",Merged$Activity)
 Merged$Activity<-gsub(6,"Lying",Merged$Activity)
 
-
 #Change subjects from integer to factor, prints structure of merged data set
 Merged$SubjectID<-factor(Merged$SubjectID)
 Merged$Activity<-factor(Merged$Activity)
@@ -76,6 +72,7 @@ str(Merged)
 
 #Prompt to continue
 readline(prompt="Press [enter] to continue")
+
 
 
 #Melt dataset and calculate the mean of each variable based on subject number and activity
