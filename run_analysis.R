@@ -69,17 +69,22 @@ Merged$Activity<-gsub(5,"Standing",Merged$Activity)
 Merged$Activity<-gsub(6,"Lying",Merged$Activity)
 
 
-#Change subjects from integer to factor
+#Change subjects from integer to factor, prints structure of merged data set
 Merged$SubjectID<-factor(Merged$SubjectID)
 Merged$Activity<-factor(Merged$Activity)
 str(Merged)
 
+#Prompt to continue
+readline(prompt="Press [enter] to continue")
 
-#Melt dataset
+
+#Melt dataset and calculate the mean of each variable based on subject number and activity
 library(reshape2)
 Merged.Melt<-Merged[,-which(names(Merged)=="Group")]
 Merged.Melt<- melt(Merged.Melt,id=c("SubjectID", "Activity"))
 Merged.Mean<- dcast(Merged.Melt,SubjectID + Activity ~variable, mean)
+
+#Print the resulting data table
 Merged.Mean
 
 
