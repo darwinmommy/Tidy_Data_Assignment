@@ -1,4 +1,12 @@
 This code book is associated with the final programming assignment for the "Getting and Cleaning Data" Coursera course.
+Abbreviations & definitions used in variable names:
+t: time
+Acc: acceleration (in m/s^2 or in g)
+Std: standard deviation
+Jerk: rate of change of acceleration with time (in m/s^3 or in g/sec)
+f: Fast Fourier Transform (FFT) 
+Gyro: 
+Mag: magnitude
 
 1. SubjectID
     ID assigned to study subject (range 1-30)- factor variable
@@ -51,10 +59,10 @@ This code book is associated with the final programming assignment for the "Gett
 37. tGravityAccMag-Std
 38. tBodyAccJerkMag-Mean
 39. tBodyAccJerkMag-Std
-40. tBodyGyroMag-mean
-41. tBodyGyroMag-std
-42. tBodyGyroJerkMag-mean 
-43. tBodyGyroJerkMag-std
+40. tBodyGyroMag-Mean
+41. tBodyGyroMag-Std
+42. tBodyGyroJerkMag-Mean 
+43. tBodyGyroJerkMag-Std
 44. fBodyAcc-MeanX	
 45. fBodyAcc-MeanY	
 46. fBodyAcc-MeanZ	
