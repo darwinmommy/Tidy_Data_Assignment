@@ -16,8 +16,8 @@ colnames<-read.csv("features.txt",header=FALSE,stringsAsFactors = FALSE,sep=" ")
 colnames<-colnames[2]
 colnames<-unlist(colnames)
 
-#Extracts only measurements with mean or SD (note: does not include variables ending in "Freq" because would incdicate mean frequency)
-MeanSD<-grep(".*mean.[^Freq]|.*std.[^Freq]",colnames)
+#Extracts only measurements with mean or SD 
+MeanSD<-grep(".*mean.*|.*std.*",colnames)
 MeanSD.names<-colnames[MeanSD]
 MeanSD.names = gsub("-mean","Mean",MeanSD.names)
 MeanSD.names = gsub ("-std","Std",MeanSD.names)
@@ -52,9 +52,9 @@ library(plyr)
 TrainCompiled<-mutate(TrainCompiled,Group="Train")
 Train<-cbind(TrainCompiled,TrainData)
 
-#Create a merged data set that includes all "Test" and "Train" data, subsets columns 1-69 to include only variables with Mean or Std measurements
+#Create a merged data set that includes all "Test" and "Train" data, subsets columns 1-82 to include only variables with Mean or Std measurements
 Merged<-rbind(Train,Test)
-Merged = Merged[,1:69]
+Merged = Merged[,1:82]
 
 #Rename activities according to code book (tried using the piping operator, couldn't make it work)
 Merged$Activity<-as.character(Merged$Activity)
@@ -70,8 +70,7 @@ Merged$SubjectID<-factor(Merged$SubjectID)
 Merged$Activity<-factor(Merged$Activity)
 str(Merged)
 
-#Prompt to continue
-readline(prompt="Press [enter] to continue")
+
 
 
 
@@ -83,5 +82,8 @@ Merged.Mean<- dcast(Merged.Melt,SubjectID + Activity ~variable, mean)
 
 #Print the resulting data table
 Merged.Mean
+
+
+
 
 
