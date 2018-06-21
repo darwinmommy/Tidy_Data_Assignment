@@ -1,3 +1,4 @@
+#Download and unzip the required files
 filename<-"UCI Data.zip"
 if(!file.exists(filename)){
     URL<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -16,7 +17,7 @@ colnames<-read.csv("features.txt",header=FALSE,stringsAsFactors = FALSE,sep=" ")
 colnames<-colnames[2]
 colnames<-unlist(colnames)
 
-#Extracts only measurements with mean or SD 
+#Extract only measurements with mean or SD 
 MeanSD<-grep(".*mean.*|.*std.*",colnames)
 MeanSD.names<-colnames[MeanSD]
 MeanSD.names = gsub("-mean","Mean",MeanSD.names)
@@ -24,7 +25,8 @@ MeanSD.names = gsub ("-std","Std",MeanSD.names)
 MeanSD.names = gsub("[-()]","",MeanSD.names)
 
 
-#Read the X_test.txt file (contains data values) and assign the column names using the character vector created above
+#Read the X_test.txt file (contains data values) and assign the column names using the character vector created above from the 
+##features.txt file
 TestData<-read.table("X_test.txt",header=FALSE,stringsAsFactors = FALSE,as.is = T)
 colnames(TestData)=MeanSD.names
 
@@ -40,7 +42,8 @@ Test<-cbind(TestCompiled,TestData)
 TrainMeasure<-read.csv("y_train.txt",header=FALSE)
 TrainSubjects<-read.csv("subject_train.txt",header=FALSE)
 
-#As above, read the X_train file (contains data values) and assign column names using the character vector created above
+#As above, read the X_train file (contains data values) and assign column names using the character vector created above from the
+##features.txt file
 TrainData<-read.table("X_train.txt",header=FALSE,stringsAsFactors = FALSE,as.is = T)
 colnames(TrainData)=MeanSD.names
 
