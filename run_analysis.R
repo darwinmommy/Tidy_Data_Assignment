@@ -59,7 +59,7 @@ Train<-cbind(TrainCompiled,TrainData)
 Merged<-rbind(Train,Test)
 Merged = Merged[,1:82]
 
-#Rename activities according to code book (tried using the piping operator, couldn't make it work)
+#Rename activities according to code book (I tried condensing this, couldn't make it work)
 Merged$Activity<-as.character(Merged$Activity)
 Merged$Activity<-gsub(1,"Walking",Merged$Activity) 
 Merged$Activity<-gsub(2,"Upstairs",Merged$Activity)
